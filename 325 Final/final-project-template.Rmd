@@ -1,23 +1,14 @@
 ---
-title: "Title of Your Project"
-author: "Group Number and Member's Names"
+title: "Amargosa Pupfish Body Mass Distribution Across Sex and Location"
+author: "Group 7, Olivia Facca, Miro Nuetzi and Taylor Larcombe"
 output: 
   word_document:
     reference_docx: final-project-style.docx
 ---
 
-> All instructions shown below start with the `greater than` sign. The instructions **MUST** not appear in the files (.Rmd and .docx) that you will submit via Blackboard. Make sure you remove all instructions (including this one) after you have completed your project.
-
-> **IMPORTANT**: If you have used data associated with a publication, **DO NOT** copy text from the source publication when writing this report. Your text will be cross-checked with original publication. **Plagiarism in any form will result in an automatic grade of ZERO.**
-
-> Use the chunk below to set global options for your document's chunks
-
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(include = FALSE)
 ```
-
-> Use the chunk below to load the packages you will need and to read-in and process the data you will use.
-
 ```{r libraries-data, include = FALSE}
 library(tidyverse)
 library(modelr)
@@ -31,41 +22,33 @@ library(knitr)
 
 ## Ecological Background
 
-> Maximum of 75 words (approximately 2-3 sentences).  
-
-> This sub-section must include a few brief statements about the general ecological context or problem that led to the formulation of your project objective(s). This sub-section is not supposed to be a comprehensive Introduction (note the word limit) but will enable you to succintly demonstrate how to set the stage for the statement of your objectives.
+### Amargosa pupfish (Cyprinodon nevadensis amargosae) is endemic to the Death Valley, California, specifically the lower regions of the Amargosa River and its surrounding environment. Including areas such as desert streams, springs and marshes. The river in the Death Valley can experience high fluctuation in ecological conditions, such as desiccation, water flow changes, fluctuation in temperature and flash floods (Lema and Navitt, 2004). The fish create multiple generations within a year and are reach sexually mature within a few months (Miller. 1948).  
 
 ## Objectives
 
-> Maximum of 75 words (approximately 2-3 sentences).  
-
-> This sub-section must include your project objective(s). If you wish, you can state questions or hypotheses instead. If stating hypotheses, state **ecological hypotheses**, not **statistical hypotheses**.
+### The first objective for this analysis is to determine the size difference of Amargosa Pupfish (Cyprinodon nevadensis amargosae) in two different areas over the period of six years. Secondly, to observe the size difference of the pupfish in two different areas between the periods of May 2014 and November 2014 as a result of increasing temperature. and lastly to observe the mean mass difference between males and females between May 2014 and November 2014.
 
 # Methods
 
 ## Data Source 
 
-> Maximum of 200 words (approximately 5-6 sentences)
-
-> This sub-section must include a description of how the data was collected (e.g. sampling/experimental design, sampling procedures, variables measured, and any other information you find relevant) and indicate from where you obtained the data.
+### There are two areas that were sampled for this study, the Tepcopa Bore and the Amargosa River. The Tepcopa Bore is in Tepcopa California and the Amargosa River is located just outside of the city. Fish were caught and sampled in both areas and were separated into male and female categories.  Sampled fish weight for male and females has been recorded in grams and has been retaken over many years. First starting in June 2008 and continuing in September 2013. After this the sites were revisited, and sample fish were taken again and separated into categories of male or female and the weight for each fish sampled in May and November 2014.
 
 ## Data Processing and Analysis
 
-> Maximum of 400 words (approximately 10-12 sentences)
+### To analyse the data on the fish’s body mass regarding location and sex, a general linear model due to categorical variable was used. First, the body mass for all months was standardized and then put into the general linear model; after May 2014 and November 2014 body mass mean was taken to show if there was any difference on body mass in regards of sex between spring and fall. To show all the relationships between body mass and sex, as well as body mass and location, several different types of graphs were used. This was done by using the packages tidy verse, model r, broom, lme4, and MuMIn.
 
-> This sub-section must include a description of all data processing steps you took to prepare the data for analysis. The description should be a high level one (e.g. "numeric variables were standardized" rather than describing the process of variable standardization). 
+### To appropriately graph the data for each objective, the ggplot function was utilized. In Figure 1. to Figure 6., the factor function was used to separate the two sample locations so that body mass could be plotted against each location for each month of data. Figure 7. and Figure 8., also involve the ggplot function, however, included the use of stat_summary so the mean body mass of the male population and female population could be plotted separately in a bar graph. The stat_summary function is part of the Hmisc package which was installed in the library section of the code.
 
-> The model used to analyze the data must be described in detail and using mathematical notation (use Latex equation editors available on the web to help you write the model). The example below shows how to describe a **simple linear regression model** (your specific model may require different notation) for juvenile sockeye salmon length as a function of rearing temperature and explain the meaning of terms (if you are using Bayesian inference, you must also describe the priors assumed):
- 
-> $$y_{i} \sim Normal\left(\mu_{i}, \sigma\right)$$
 
-> $$\mu_{i} = \beta_{0} + \beta_{t}x_{t, i}$$
+$y_{i} \sim Normal\left(\mu_{i}, \sigma\right)$
 
-> where $y_{i}$ is the length of individual $i$; $beta_{0}$ is the model intercept; $\beta_{t}$ is the slope for the effect of rearing temperature; $x_{t, i}$ is the temperature individual $i$ was reared; $\sigma$ is the residual standard deviation.
+$y_{i} = \beta_{0} + \beta_{j(2)}x_{ij(2)} + \beta_{k}x_{ik} + \varepsilon_{i}$
 
->End the section with a description of how model assumptions were checked, how model selection was conducted, and provide any other information you think relevant for the reader to understand how you processed the model output. Also mention the use of R for the analysis and list the R packages and versions used.
-
-> Include at the end of this section one or more code chunks with commands to fit the model to the data and conduct checks of model assumptions. The codes and their outputs must **NOT** appear in the rendered .docx file.
+### The formula stands for the general notation for describing models.
+### In the second formula each of the different parts stand for individual parts, described below. 
+### The $y_{i}$ stands for the individuals representing the sex in the differnt locations.
+### $\beta_{0}$  is the intercept representing the equation of the general linear model and the $\beta_{j(2)}x_{ij(2)}$ are the predictor which represent the population and sex which are sepraded into two groups. 
 
 ```{r, include = FALSE}
 jundat <- read_csv("June2008.csv") %>%
@@ -87,14 +70,12 @@ sepnew <- glm(bodymass ~ population, data = sepdat, family = 'gaussian')
 ```
 
 # Results
+### In June 2008, the bore and river were very close in the mean mass for the pup fish though the bore had a higher 3rd quartile and max for mass (Fig.1). Moving to the September 2013 data there is a significant drop in the mass of the bore population and slight change in the river population (Fig.2). May 2014 showed mass of the bore population rising in mass though the mean mass of the population is significantly below the river’s population (Fig.3). The following fall in the November the masses were measured again and showed the bore population increasing with many outliers above the max mass (Fig. 4).
 
-> Maximum of 400 words (approximately 10-12 sentences).
+### Figure 5 and Figure 6 show the body mass of the pupfish in two different locations in May of 2014 and November 2014 respectively. By factoring the population data, we are able to visualize the fitted body mass of the collective population of fish taken from the bore location and the river location. The visualized data shows a generally larger body mass in the fish sampled in November 2014 than in May 2014. November is a generally cooler month than May therefore, a larger body mass in this month alludes to better growth in cooler temperatures. This result provides insight on how the effects of increasing temperatures in waters are physically affecting the growth of this population of fish.
 
-> This sub-section must include a basic summary of the data and a detailed description of outputs of your analysis (including model selection, direction and strength of effects supported by the data). Present and refer to tables and figures to support your statements. 
+### Comparing the mean body mass of female and male weight of the Amargosa Pupfish (see bar graph, figure 7 and 8). It can be observed that the female body mass is higher in both graphs. Furthermore, the November data set (figure 7) has a higher overall body mass when comparing the male and female data tp the May data set (figure 8). The cause of this might be due to the growth rate of the fish and the accumulation of more mass over the five months that have passed. Furthermore, when observing the error bar on the graph it can be seen that females tend to be heavier then then male fish.
 
-> Throughout this section, include code chunks with commands to create tables and figures (make sure to add informative captions). The codes  must **NOT** appear in the rendered .docx file but the tables and figures **MUST** be included in the rendered .docx file.
-
-> Results presented inline with text (e.g. means, statistics) must be presented using inline R code. For example, assuming the variable `y` created in the R chunk below (delete it from your final report) contains all juvenile sockeye salmon measurements in a study, I could present the mean and standard deviation of the measurements inline with text using:
 
 ```{r, echo = FALSE, fig.cap = 'Fig 1. Showing mean of body mass for each population in June 2008'}
 ggplot(junnew, aes(x = factor(population), y = bodymass)) +
@@ -146,8 +127,8 @@ ggplot(novdat, aes(x = bodymass, y = sex)) +  stat_summary(fun.y = mean, geom = 
 ggplot(maydat, aes(x = bodymass, y = sex)) +  stat_summary(fun.y = mean, geom = "bar", fill = "skyblue") +  stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), geom = "errorbar", width = 0.1) +  xlab("Mean Bodymass (g)") +  ylab("Sex (M = Male, F = Female")
 ```
 
-> Juveniles sockeye salmon lengths were on average $\pm$ (1SD) `r round(mean(y), 1)` $\pm$ `r round(sd(y), 1)` cm.
-
 # References
 
-> Include here a list of all references cited. Refer to the Final Proect assignment on Blackboard for the format of citations.
+### Lema, S., & Nevitt, G. (2004). Exogenous vasotocin alters aggression during agonistic exchanges in male Amargosa River pupfish (Cyprinodon nevadensis amargosae). Center for Animal Behavior and Section of Neurobiology, Physiology, and Behavior, University of California, Davis, CA 95616, USA. doi:https://doi.org/10.1016/j.yhbeh.2004.07.003
+
+### Miller. 1948.  "Amargosa River Pupfish - Cyprinodon nevadensis amargosae (Miller)". California Department of Fish and Game.
