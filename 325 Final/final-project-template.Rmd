@@ -25,11 +25,6 @@ library(broom)
 library(lme4)
 library(MuMIn)
 library(knitr)
-jundat <- read_csv("June2008.csv") %>%
-  mutate(sbodymass = ("body mass (g)" - mean("body mass (g)")) / sd("body mass (g)"))
-maydat <- read_csv("May2014.csv")
-novdat <- read_csv("Nov2014.csv")
-sepdat <- read_csv("Sept2013.csv")
 ```
 
 # Introduction
@@ -72,6 +67,25 @@ sepdat <- read_csv("Sept2013.csv")
 
 > Include at the end of this section one or more code chunks with commands to fit the model to the data and conduct checks of model assumptions. The codes and their outputs must **NOT** appear in the rendered .docx file.
 
+```{r, include = FALSE}
+jundat <- read_csv("June2008.csv") %>%
+  mutate(jbm = bodymass - mean(bodymass) / sd(bodymass))
+maydat <- read_csv("May2014.csv") %>%
+  mutate(mbm = bodymass - mean(bodymass) / sd(bodymass))
+novdat <- read_csv("Nov2014.csv") %>%
+    mutate(nbm = bodymass - mean(bodymass) / sd(bodymass))
+sepdat <- read_csv("Sept2013.csv") %>%
+  mutate(sbm = bodymass - mean(bodymass) / sd(bodymass))
+  
+  maynew <- glm(bodymass ~ population, data = maydat, family = 'gaussian')
+
+novnew <- glm(bodymass ~ population, data = novdat, family = 'gaussian')
+
+junnew <- glm(bodymass ~ population, data = jundat, family = 'gaussian')
+
+sepnew <- glm(bodymass ~ population, data = sepdat, family = 'gaussian')
+```
+
 # Results
 
 > Maximum of 400 words (approximately 10-12 sentences).
@@ -82,8 +96,54 @@ sepdat <- read_csv("Sept2013.csv")
 
 > Results presented inline with text (e.g. means, statistics) must be presented using inline R code. For example, assuming the variable `y` created in the R chunk below (delete it from your final report) contains all juvenile sockeye salmon measurements in a study, I could present the mean and standard deviation of the measurements inline with text using:
 
-```{r}
-y <- rnorm(100, 4, 1)
+```{r, echo = FALSE, fig.cap = 'Fig 1. Showing mean of body mass for each population in June 2008'}
+ggplot(junnew, aes(x = factor(population), y = bodymass)) +
+geom_boxplot() +
+xlab("Population") +
+ylab("Body Mass (g)")
+```
+
+```{r, echo = FALSE, fig.cap = 'Fig 2. Showing mean of body mass for each population in September 2013'}
+ggplot(sepnew, aes(x = factor(population), y = bodymass)) +
+geom_boxplot() +
+xlab("Population") +
+ylab("Body Mass (g)")
+```
+
+```{r, echo = FALSE, fig.cap = 'Fig 3. Showing mean of body mass for each population in May 2014'}
+ggplot(maynew, aes(x = factor(population), y = bodymass)) +
+geom_boxplot() +
+xlab("Population") +
+ylab("Body Mass (g)")
+```
+
+```{r, echo = FALSE, fig.cap = 'Fig 4. Showing mean of body mass for each population in November 2014'}
+ggplot(novnew, aes(x = factor(population), y = bodymass)) +
+geom_boxplot() +
+xlab("Population") +
+ylab("Body Mass (g)")
+```
+
+```{r, echo = FALSE, fig.cap = 'Fig 5. Scatter plot showing mean body mass in two different areas of populattion for May 2014'}
+ggplot(maynew, aes(x = factor(population), y = bodymass)) +
+geom_point() +
+xlab("Population") +
+ylab("Body Mass (g)")
+```
+
+```{rr, echo = FALSE, fig,cap = 'Fig 6. Scatter plot showing mean body mass in two different areas of populattion for November 2014'}
+ggplot(novnew, aes(x = factor(population), y = bodymass)) +
+geom_point() +
+  xlab("Population") +
+ylab("Body Mass (g)")
+```
+
+```{r, echo = FALSE, fig.cap = 'Fig 7. Bar Graph showing the Mean Difference between Male and Female Body Mass of the November 2014 dataset'}
+ggplot(novdat, aes(x = bodymass, y = sex)) +  stat_summary(fun.y = mean, geom = "bar", fill = "skyblue") +  stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), geom = "errorbar", width = 0.1) +  xlab("Mean Bodymass (g)") +  ylab("Sex (M = Male, F = Female")
+```
+
+```{r, echo = FALSE, fig.cap = 'Fig 8. Bar Graph showing the Mean Difference between Male and Female Body Mass of the May 2014 dataset'}
+ggplot(maydat, aes(x = bodymass, y = sex)) +  stat_summary(fun.y = mean, geom = "bar", fill = "skyblue") +  stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), geom = "errorbar", width = 0.1) +  xlab("Mean Bodymass (g)") +  ylab("Sex (M = Male, F = Female")
 ```
 
 > Juveniles sockeye salmon lengths were on average $\pm$ (1SD) `r round(mean(y), 1)` $\pm$ `r round(sd(y), 1)` cm.
