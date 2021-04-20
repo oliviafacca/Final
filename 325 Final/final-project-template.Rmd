@@ -16,6 +16,7 @@ library(broom)
 library(lme4)
 library(MuMIn)
 library(knitr)
+library(Hmisc)
 ```
 
 # Introduction
