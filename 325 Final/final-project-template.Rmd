@@ -50,8 +50,8 @@ $y_{i} \sim Normal\left(\mu_{i}, \sigma\right)$
 
 $y_{i} = \beta_{0} + \beta_{j(2)}x_{ij(2)} + \beta_{k}x_{ik} + \varepsilon_{i}$
 
-### The formula stands for the general notation for describing models.
-### In the second formula each of the different parts stand for individual parts, described below. 
+### The first formula stands for the general notation for describing models.
+### In the second formula stands for the general linear model, each of the different variables are described below. 
 ### The $y_{i}$ stands for the individuals representing the sex in the differnt locations.
 ### $\beta_{0}$  is the intercept representing the equation of the general linear model and the $\beta_{j(2)}x_{ij(2)}$ are the predictor which represent the population and sex which are sepraded into two groups. 
 
